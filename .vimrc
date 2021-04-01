@@ -9,51 +9,11 @@ call vundle#begin()
 
 " let Vundle manage Vundle, required
 Plugin 'VundleVim/Vundle.vim'
-
-Plugin 'sainnhe/sonokai'
-
 Plugin 'vim-airline/vim-airline'
+Plugin 'scrooloose/nerdtree'
+Plugin 'valloric/youcompleteme'
+Plugin 'challenger-deep-theme/vim', {'name': 'challenger-deep-theme'}
 
-Plugin 'ycm-core/YouCompleteMe'
-
-Plugin 'junegunn/seoul256.vim'
-Plugin 'junegunn/goyo.vim'
-Plugin 'junegunn/limelight.vim'
-
-if has('termguicolors')
-	set termguicolors
-endif
-
-let g:seoul256_background = 234
-colorscheme seoul256 
-
-autocmd vimenter * Limelight 
-map <C-v> :Goyo<CR>
-
-Plugin 'preservim/nerdtree'
-map <C-o> :NERDTreeToggle<CR>
-
-Plugin 'airblade/vim-gitgutter'
-g:gitgutter_sign_priority = 0
-
-
-let g:ycm_clangd_binary_path = "/usr/bin/clangd-9"
-
-map <C-j> <C-W>j
-map <C-k> <C-W>k
-map <C-h> <C-W>h
-map <C-l> <C-W>l
-
-set ruler
-set ignorecase
-set smartcase
-set autoindent
-set number
-syntax enable
-
-let g:ycm_path_to_python_interpreter="/usr/bin/python3"
-let g:ycm_max_num_identifier_candidates = 30
-let g:ycm_complete_in_comments = 1
 
 " All of your Plugins must be added before the following line
 call vundle#end()            " required
@@ -69,3 +29,22 @@ filetype plugin indent on    " required
 "
 " see :h vundle for more details or wiki for FAQ
 " Put your non-Plugin stuff after this line
+"
+syntax enable
+set number
+set clipboard=unnamedplus
+set cursorline
+set nowrap
+
+if has('nvim') || has('termguicolors')
+  set termguicolors
+endif
+
+colorscheme challenger_deep
+
+
+nnoremap <C-o> :NERDTreeToggle<CR>
+nnoremap <C-J> <C-W>j
+nnoremap <C-K> <C-W>k
+nnoremap <C-L> <C-W>l
+nnoremap <C-H> <C-W>h
