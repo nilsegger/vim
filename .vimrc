@@ -10,10 +10,23 @@ call vundle#begin()
 " let Vundle manage Vundle, required
 Plugin 'VundleVim/Vundle.vim'
 Plugin 'vim-airline/vim-airline'
+Plugin 'airblade/vim-gitgutter'
+
 Plugin 'scrooloose/nerdtree'
+" Start NERDTree, unless a file or session is specified, eg. vim -S session_file.vim.
+autocmd StdinReadPre * let s:std_in=1
+autocmd VimEnter * if argc() == 0 && !exists('s:std_in') && v:this_session == '' | NERDTree | endif
+nnoremap <C-n> :NERDTreeToggle<CR>
+
 Plugin 'valloric/youcompleteme'
 Plugin 'challenger-deep-theme/vim', {'name': 'challenger-deep-theme'}
+Plugin 'NLKNguyen/papercolor-theme'
+Plugin 'scrooloose/syntastic'
 
+" Compile with '\ll'
+" Parse error file '\le'
+" View pdf with '\lv'
+Plugin 'lervag/vimtex'
 
 " All of your Plugins must be added before the following line
 call vundle#end()            " required
@@ -36,15 +49,28 @@ set clipboard=unnamedplus
 set cursorline
 set nowrap
 
-if has('nvim') || has('termguicolors')
-  set termguicolors
-endif
+" If you want to just turn off the identifier completer but keep the semantic triggers, you should set g:ycm_min_num_of_chars_for_completion to a high number like 99.
+let g:ycm_min_num_of_chars_for_completion = 99
+nnoremap <C-G> :YcmCompleter GoTo<CR>
+nnoremap <F2> :YcmCompleter GoToReferences<CR>
+nnoremap <F3> :YcmCompleter FixIt<CR>
+nnoremap <F4> :YcmCompleter RefactorRename 
 
-colorscheme challenger_deep
-
-
-nnoremap <C-o> :NERDTreeToggle<CR>
 nnoremap <C-J> <C-W>j
 nnoremap <C-K> <C-W>k
 nnoremap <C-L> <C-W>l
 nnoremap <C-H> <C-W>h
+
+set t_Co=256   " This is may or may not needed.
+set background=light
+colorscheme PaperColor
+
+" recommended defaults by syntastic
+set statusline+=%#warningmsg#
+set statusline+=%{SyntasticStatuslineFlag()}
+set statusline+=%*
+
+let g:syntastic_always_populate_loc_list = 1
+let g:syntastic_auto_loc_list = 1
+let g:syntastic_check_on_open = 1
+let g:syntastic_check_on_wq = 0
