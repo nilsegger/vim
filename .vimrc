@@ -1,4 +1,5 @@
 set nocompatible              " be iMproved, required
+set textwidth=80
 filetype off                  " required
 
 " set the runtime path to include Vundle and initialize
@@ -16,11 +17,8 @@ Plugin 'scrooloose/nerdtree'
 " Start NERDTree, unless a file or session is specified, eg. vim -S session_file.vim.
 autocmd StdinReadPre * let s:std_in=1
 autocmd VimEnter * if argc() == 0 && !exists('s:std_in') && v:this_session == '' | NERDTree | endif
-nnoremap <C-n> :NERDTreeToggle<CR>
 
 Plugin 'valloric/youcompleteme'
-Plugin 'challenger-deep-theme/vim', {'name': 'challenger-deep-theme'}
-Plugin 'NLKNguyen/papercolor-theme'
 Plugin 'scrooloose/syntastic'
 
 " Compile with '\ll'
@@ -28,7 +26,11 @@ Plugin 'scrooloose/syntastic'
 " View pdf with '\lv'
 Plugin 'lervag/vimtex'
 
+Plugin 'kyoz/purify', { 'rtp': 'vim' }
+
 Plugin 'cdelledonne/vim-cmake'
+
+" Plugin 'yggdroot/indentline'
 
 " All of your Plugins must be added before the following line
 call vundle#end()            " required
@@ -45,12 +47,19 @@ filetype plugin indent on    " required
 " see :h vundle for more details or wiki for FAQ
 " Put your non-Plugin stuff after this line
 "
-syntax enable
+syntax on 
 set number
 set clipboard=unnamedplus
 set cursorline
 set nowrap
+set termguicolors     " enable true colors support
+set background=dark
+colorscheme purify
+let g:airline_theme='purify'
+set list lcs=tab:\|\ 
 
+let g:ycm_always_populate_location_list = 1
+nnoremap <C-n> :lopen<CR>
 " If you want to just turn off the identifier completer but keep the semantic triggers, you should set g:ycm_min_num_of_chars_for_completion to a high number like 99.
 let g:ycm_min_num_of_chars_for_completion = 99
 nnoremap <C-G> :YcmCompleter GoTo<CR>
@@ -63,9 +72,6 @@ nnoremap <C-K> <C-W>k
 nnoremap <C-L> <C-W>l
 nnoremap <C-H> <C-W>h
 
-set t_Co=256   " This is may or may not needed.
-set background=light
-colorscheme PaperColor
 
 " recommended defaults by syntastic
 set statusline+=%#warningmsg#
